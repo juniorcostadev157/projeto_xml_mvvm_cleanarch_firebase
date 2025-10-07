@@ -3,7 +3,7 @@ name: Android CD 🚀
 on:
   push:
     branches:
-      - main  # CD só roda quando houver merge na main
+      - master  # CD só roda quando houver merge na master
 
 jobs:
   deploy:
