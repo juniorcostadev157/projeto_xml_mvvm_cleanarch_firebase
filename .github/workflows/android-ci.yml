@@ -1,14 +1,13 @@
-name: Android CI/CD 🚀
+name: Android CI 🚧
 
 on:
-  push:
-    branches:
-      - main
-      - feature/**
-      - fix/**
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - feature/**
+      - fix/**
 
 jobs:
   build:
@@ -53,23 +52,3 @@ jobs:
 
       - name: 🧮 Gerar Relatório de Cobertura (Jacoco)
         run: ./gradlew jacocoTestReport
-
-      - name: 🏗️ Gerar APK de debug
-        run: ./gradlew assembleDebug
-
-      - name: 📦 Salvar APK como artefato
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
-
-      # --- CD: Deploy automático pro Firebase ---
-      - name: 🚀 Enviar APK para Firebase App Distribution
-        if: github.ref == 'refs/heads/main'
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
-        with:
-          appId: ${{ secrets.FIREBASE_APP_ID }}
-          serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIALS }}
-          groups: testers
-          file: app/build/outputs/apk/debug/app-debug.apk
-          releaseNotes: "Build automático via GitHub Actions 🚀 - Commit ${{ github.sha }}"

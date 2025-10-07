@@ -2,6 +2,9 @@
   <dictionary name="project">
     <words>
       <w>automático</w>
+      <w>enviar</w>
+      <w>ktlint</w>
+      <w>rodar</w>
     </words>
   </dictionary>
 </component>

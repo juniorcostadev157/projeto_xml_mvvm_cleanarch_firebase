@@ -1,7 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    jacoco
 }
+
+
 
 android {
     namespace = "com.junior.projetomvvmcleanxml"
@@ -18,6 +21,11 @@ android {
     }
 
     buildTypes {
+
+        debug {
+            enableUnitTestCoverage = true
+        }
+
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -33,16 +41,45 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-}
 
-dependencies {
+    tasks.register<JacocoReport>("jacocoTestReport") {
+        dependsOn("testDebugUnitTest")
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+            csv.required.set(false)
+        }
+
+        val fileFilter = listOf(
+            "**/R.class",
+            "**/R$*.class",
+            "**/BuildConfig.*",
+            "**/Manifest*.*",
+            "**/*Test*.*"
+        )
+
+        val debugTree = fileTree(layout.buildDirectory.dir("tmp/kotlin-classes/debug")) {
+            exclude(fileFilter)
+        }
+
+        classDirectories.setFrom(debugTree)
+        sourceDirectories.setFrom(files("src/main/java"))
+        executionData.setFrom(fileTree(layout.buildDirectory) {
+            include("jacoco/testDebugUnitTest.exec")
+        })
+    }
+
+
+    dependencies {
+
+        implementation(libs.androidx.core.ktx)
+        implementation(libs.androidx.appcompat)
+        implementation(libs.material)
+        implementation(libs.androidx.activity)
+        implementation(libs.androidx.constraintlayout)
+        testImplementation(libs.junit)
+        androidTestImplementation(libs.androidx.junit)
+        androidTestImplementation(libs.androidx.espresso.core)
+    }
 }
