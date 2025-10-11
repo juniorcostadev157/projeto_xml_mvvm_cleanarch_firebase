@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -36,6 +35,11 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
+      # 🧩 Criar o arquivo google-services.json dinamicamente
+      - name: 🔐 Criar google-services.json
+        run: |
+          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > app/google-services.json
 
       # --- Etapas do CI ---
       - name: 🔎 Rodar Detekt (análise estática)
