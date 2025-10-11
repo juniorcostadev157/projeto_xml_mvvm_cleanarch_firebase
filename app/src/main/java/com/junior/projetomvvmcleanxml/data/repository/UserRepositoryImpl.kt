@@ -1,0 +1,15 @@
+package com.junior.projetomvvmcleanxml.data.repository
+
+import com.junior.projetomvvmcleanxml.data.datasource.FirebaseUserDataSource
+import com.junior.projetomvvmcleanxml.domain.model.user.Users
+import com.junior.projetomvvmcleanxml.domain.model.user.toResponse
+import com.junior.projetomvvmcleanxml.domain.repository.UserRepository
+
+class UserRepositoryImpl (
+    private val data: FirebaseUserDataSource
+): UserRepository {
+    override suspend fun createUser(user: Users) {
+
+        data.createUser(user.toResponse())
+    }
+}

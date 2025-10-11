@@ -1,21 +1,80 @@
 package com.junior.projetomvvmcleanxml.presentation.login
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.junior.projetomvvmcleanxml.R
+import androidx.lifecycle.ViewModelProvider
+import com.junior.projetomvvmcleanxml.databinding.ActivityLoginBinding
+import com.junior.projetomvvmcleanxml.presentation.utils.InjectContainer
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: LoginViewModel
+    private lateinit var binding: ActivityLoginBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_login)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val factory = InjectContainer.loginFactory
+        viewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
+
+        viewModel.loginStage.observe(this) { state ->
+            when (state) {
+                is LoginUiState.Empty -> hideLoading()
+                is LoginUiState.Loading -> showLoading()
+                is LoginUiState.Success -> {
+                    hideLoading()
+                    navigateToHome()
+                }
+                is LoginUiState.Error -> {
+                    hideLoading()
+                    showToast(state.message)
+                }
+            }
+        }
+
+        binding.btnLogin.setOnClickListener {
+            val email = binding.etEmail.text.toString().trim()
+            val password = binding.etPassword.text.toString().trim()
+
+            if (email.isBlank() || password.isBlank()) {
+                Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel.login(email, password)
+            }
+        }
+    }
+
+    private fun showLoading() {
+        binding.progressLoading.visibility = View.VISIBLE
+        binding.btnLogin.isEnabled = false
+        binding.btnLogin.alpha = 0.6f // leve transparência pra parecer desabilitado
+    }
+
+    private fun hideLoading() {
+        binding.progressLoading.visibility = View.GONE
+        binding.btnLogin.isEnabled = true
+        binding.btnLogin.alpha = 1.0f
+    }
+
+    private fun navigateToHome() {
+        Toast.makeText(this, "Login realizado com sucesso!", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
