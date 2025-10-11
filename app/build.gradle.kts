@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     jacoco
+    id("com.google.gms.google-services")
 }
 
 
@@ -42,6 +43,10 @@ android {
         jvmTarget = "11"
     }
 
+    viewBinding{
+        enable = true
+    }
+
     tasks.register<JacocoReport>("jacocoTestReport") {
         dependsOn("testDebugUnitTest")
 
@@ -68,6 +73,7 @@ android {
         executionData.setFrom(fileTree(layout.buildDirectory) {
             include("jacoco/testDebugUnitTest.exec")
         })
+
     }
 
 
@@ -81,5 +87,20 @@ android {
         testImplementation(libs.junit)
         androidTestImplementation(libs.androidx.junit)
         androidTestImplementation(libs.androidx.espresso.core)
+
+
+        // Firebase BOM to manage versions
+        implementation(platform(libs.firebase.bom))
+
+        // Firebase Dependencies
+        implementation(libs.firebase.analytics)
+        implementation(libs.firebase.auth.ktx)
+        implementation(libs.firebase.messaging.ktx)
+        implementation(libs.firebase.storage.ktx)
+        implementation(libs.firebase.firestore.ktx)
+
+        // viewModelScope
+        implementation (libs.androidx.lifecycle.viewmodelKtx)
+        implementation (libs.androidx.lifecycle.livedataKtx)
     }
 }

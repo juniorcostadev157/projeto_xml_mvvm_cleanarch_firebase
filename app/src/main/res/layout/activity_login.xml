@@ -27,8 +27,11 @@
         android:id="@+id/til_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="48dp"
+        android:layout_marginEnd="10dp"
         android:background="@color/white"
+        app:hintTextColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title">
@@ -39,6 +42,9 @@
             android:layout_height="wrap_content"
             android:hint="@string/field_email"
             android:inputType="textEmailAddress"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textColorLink="@color/black"
             tools:ignore="VisualLintTextFieldSize" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -47,7 +53,9 @@
         android:id="@+id/til_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
         android:background="@color/white"
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,6 +68,10 @@
             android:layout_height="wrap_content"
             android:hint="@string/field_password"
             android:inputType="textPassword"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/black"
+            android:textColorHint="@color/black"
+            android:textColorLink="@color/black"
             tools:ignore="VisualLintTextFieldSize" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,15 +80,36 @@
         android:id="@+id/btn_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="15dp"
         android:backgroundTint="@color/material_dynamic_neutral30"
         android:padding="12dp"
         android:text="@string/button_login"
+        android:textColor="@color/white"
+        android:textColorLink="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_password"
         tools:ignore="VisualLintButtonSize" />
+
+    <ProgressBar
+        android:id="@+id/progress_loading"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/btn_login"
+        app:layout_constraintBottom_toTopOf="@id/tv_register_link"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark" />
+
+
 
 
     <TextView
