@@ -9,6 +9,9 @@ appcompat = "1.6.1"
 material = "1.10.0"
 activity = "1.8.0"
 constraintlayout = "2.1.4"
+firebase-auth-ktx = "24.0.1" # versão estável
+firebase-bom = "33.1.2"
+lifecycle = "2.6.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -19,6 +22,16 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx" }
+firebase-storage-ktx = { group = "com.google.firebase", name = "firebase-storage-ktx" }
+firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx" }
+# Essa é a chave para o viewModelScope!
+androidx-lifecycle-viewmodelKtx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+
+androidx-lifecycle-livedataKtx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
