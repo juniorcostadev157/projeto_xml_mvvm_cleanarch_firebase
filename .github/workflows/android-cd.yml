@@ -7,14 +7,13 @@ on:
 
 jobs:
   deploy:
-
     runs-on: ubuntu-latest
 
     steps:
       - name: 📥 Checkout do código
         uses: actions/checkout@v3
 
-      - name: 🔑 Dar permissão de execução ao gradlew
+      - name: 🔑 Permissão para gradlew
         run: chmod +x ./gradlew
 
       - name: ☕️ Configurar JDK 17
@@ -23,14 +22,19 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: 🏗️ Build APK de debug
-        run: ./gradlew assembleDebug
+      # 🧩 Criar google-services.json dinamicamente
+      - name: 🔐 Criar google-services.json
+        run: |
+          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > app/google-services.json
+
+      - name: 🏗️ Build APK Release
+        run: ./gradlew assembleRelease
 
       - name: 📦 Salvar APK como artefato
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: app-release
+          path: app/build/outputs/apk/release/app-release.apk
 
       - name: 🚀 Enviar APK para Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
@@ -38,5 +42,5 @@ jobs:
           appId: ${{ secrets.FIREBASE_APP_ID }}
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIALS }}
           groups: testers
-          file: app/build/outputs/apk/debug/app-debug.apk
+          file: app/build/outputs/apk/release/app-release.apk
           releaseNotes: "Build automático via GitHub Actions 🚀 - Commit ${{ github.sha }}"
