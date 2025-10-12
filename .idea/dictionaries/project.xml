@@ -3,9 +3,12 @@
     <words>
       <w>automático</w>
       <w>cadastrado</w>
+      <w>cadastrar</w>
+      <w>cadastro</w>
       <w>caracteres</w>
       <w>chave</w>
       <w>conexão</w>
+      <w>confirme</w>
       <w>desconhecido</w>
       <w>entrar</w>
       <w>enviar</w>
@@ -19,10 +22,12 @@
       <w>ocorreu</w>
       <w>pelo</w>
       <w>preencha</w>
+      <w>projeto</w>
       <w>realizado</w>
       <w>rodar</w>
       <w>senha</w>
       <w>vindo</w>
+      <w>voltar</w>
     </words>
   </dictionary>
 </component>
