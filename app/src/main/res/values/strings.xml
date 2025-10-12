@@ -1,21 +1,44 @@
 <resources>
     <string name="app_name">Projeto MVVM Clean XML</string>
-        <string name="field_password">
+
+    <string name="field_password">
             Digite sua senha
         </string>
-        <string name="field_email">
+
+    <string name="field_email">
             Digite seu email
         </string>
-        <string name="welcome">
+
+    <string name="field_nome">
+            Digite seu nome
+        </string>
+
+    <string name="field_confirm_password">
+            Confirme sua senha
+        </string>
+
+    <string name="welcome">
             Bem-vindo de Volta!
         </string>
 
-        <string name="button_login">
+    <string name="welcome_cadastro">
+            Cadastre-se
+        </string>
+
+    <string name="button_login">
             Entrar
+        </string>
+
+    <string name="button_cadastrar">
+            Cadastrar
         </string>
 
     <string name="register_link">
         Não tem conta? Cadastre-se aqui!
+    </string>
+
+    <string name="content_description_back_button">
+        Voltar
     </string>
     "
 

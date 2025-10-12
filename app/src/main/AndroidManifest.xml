@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoMVVMCleanXML">
+        <activity
+            android:name=".presentation.cadastro.CadastroActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.login.LoginActivity"
             android:exported="true">
