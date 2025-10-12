@@ -77,7 +77,7 @@ class CadastroActivity : AppCompatActivity() {
     private fun showLoading(){
         binding.progressLoadingCadastro.visibility = View.VISIBLE
         binding.btnCadastrar.isEnabled = false
-        binding.btnCadastrar.alpha = 0.0f
+        binding.btnCadastrar.alpha = 0.6f
     }
     private fun hideLoading(){
         binding.progressLoadingCadastro.visibility = View.GONE
