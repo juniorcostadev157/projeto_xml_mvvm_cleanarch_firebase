@@ -10,7 +10,9 @@ class FirebaseUserDataSource (
 
     suspend fun createUser(user: UserResponse){
         try {
-            firestore.collection("users").document().set(user).await()
+            val docRef = firestore.collection("users").document()
+            val userWithId = user.copy(id = docRef.id)
+            docRef.set(userWithId).await()
         }catch (e: Exception){
             throw e
         }
