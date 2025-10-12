@@ -9,10 +9,10 @@ class GenericViewModelFactory<T: ViewModel>(
 
     override fun <V : ViewModel> create (modelClass: Class<V>): V {
 
-        // 1. Cria a instância da ViewModel (o único lugar que a creator deve ser chamada).
+        //  Cria a instância da ViewModel (o único lugar que a creator deve ser chamada).
         val createdViewModel = creator()
 
-        // 2. Verifica se a classe pedida (modelClass) é compatível com a classe que criamos.
+        //  Verifica se a classe pedida (modelClass) é compatível com a classe que criamos.
         if (modelClass.isAssignableFrom(createdViewModel.javaClass)){
             @Suppress("UNCHECKED_CAST")
             return createdViewModel as V

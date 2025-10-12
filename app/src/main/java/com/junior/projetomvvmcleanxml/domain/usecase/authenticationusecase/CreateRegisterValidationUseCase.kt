@@ -6,6 +6,7 @@ class CreateRegisterValidationUseCase(
    private val repository: AuthRepository
 ) {
     suspend operator fun invoke(email: String, password: String): ValidationResult{
+
         if (email.isBlank() || !email.contains("@")){
             return ValidationResult(false, "Email Invalido")
         }

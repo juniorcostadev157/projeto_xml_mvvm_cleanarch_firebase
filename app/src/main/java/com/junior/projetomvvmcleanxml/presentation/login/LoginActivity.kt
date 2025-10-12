@@ -1,5 +1,6 @@
 package com.junior.projetomvvmcleanxml.presentation.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -9,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.junior.projetomvvmcleanxml.databinding.ActivityLoginBinding
+import com.junior.projetomvvmcleanxml.presentation.cadastro.CadastroActivity
 import com.junior.projetomvvmcleanxml.presentation.utils.InjectContainer
 
 class LoginActivity : AppCompatActivity() {
@@ -56,6 +58,7 @@ class LoginActivity : AppCompatActivity() {
                 viewModel.login(email, password)
             }
         }
+        navigateToCadastro()
     }
 
     private fun showLoading() {
@@ -76,5 +79,12 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun navigateToCadastro(){
+        binding.tvRegisterLink.setOnClickListener {
+            val intent = Intent(this, CadastroActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
