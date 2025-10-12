@@ -20,9 +20,7 @@ class LoginValidationUseCase(
         return if (result.isSuccess){
             ValidationResult(true)
         }else{
-                val exception = result.exceptionOrNull()
-            println("🔥 Tipo do erro: ${exception?.javaClass?.name}")
-            println("🔥 Mensagem do erro: ${exception?.message}")
+
             ValidationResult(false, (result.exceptionOrNull() as? AuthError)?.messageError)
         }
         }
