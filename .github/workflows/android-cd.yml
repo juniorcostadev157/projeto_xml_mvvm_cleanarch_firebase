@@ -3,7 +3,7 @@ name: Android CD 🚀
 on:
   push:
     branches:
-      - master  # CD só roda quando houver merge na master
+      - master
 
 jobs:
   deploy:
@@ -22,13 +22,31 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      # 🧩 Criar google-services.json dinamicamente
+      - name: 🧱 Configurar cache do Gradle
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: 🔐 Criar google-services.json
         run: |
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > app/google-services.json
 
-      - name: 🏗️ Build APK Release
-        run: ./gradlew assembleRelease
+      - name: 🔏 Decodificar Keystore
+        run: |
+          echo "${{ secrets.SIGNING_KEYSTORE_BASE64 }}" | base64 --decode > app/keystore.jks
+
+      - name: 🏗️ Build APK Release (assinado)
+        run: |
+          ./gradlew assembleRelease \
+            -Pandroid.injected.signing.store.file=app/keystore.jks \
+            -Pandroid.injected.signing.store.password=${{ secrets.SIGNING_STORE_PASSWORD }} \
+            -Pandroid.injected.signing.key.alias=${{ secrets.SIGNING_KEY_ALIAS }} \
+            -Pandroid.injected.signing.key.password=${{ secrets.SIGNING_KEY_PASSWORD }}
 
       - name: 📦 Salvar APK como artefato
         uses: actions/upload-artifact@v4
@@ -43,4 +61,6 @@ jobs:
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIALS }}
           groups: testers
           file: app/build/outputs/apk/release/app-release.apk
-          releaseNotes: "Build automático via GitHub Actions 🚀 - Commit ${{ github.sha }}"
+          releaseNotes: "🚀 Build via CI/CD - Commit ${{ github.sha }} por ${{ github.actor }} em ${{ github.ref_name }}"
+
+
