@@ -28,7 +28,7 @@ android {
                 ?: keystoreProperties["RELEASE_KEY_PASSWORD"] as? String
 
             if (storeFilePath != null && storePassword != null && keyAlias != null && keyPassword != null) {
-                storeFile = file(storeFilePath)
+                storeFile = rootProject.file(storeFilePath)
                 this.storePassword = storePassword
                 this.keyAlias = keyAlias
                 this.keyPassword = keyPassword
