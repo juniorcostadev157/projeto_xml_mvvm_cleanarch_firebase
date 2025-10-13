@@ -18,13 +18,17 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     signingConfigs {
-
         create("release") {
-            storeFile = file(keystoreProperties["RELEASE_STORE_FILE"] as String)
-            storePassword = keystoreProperties["RELEASE_STORE_PASSWORD"] as String
-            keyAlias = keystoreProperties["RELEASE_KEY_ALIAS"] as String
-            keyPassword = keystoreProperties["RELEASE_KEY_PASSWORD"] as String
-
+            storeFile = file(
+                findProperty("android.injected.signing.store.file") as String?
+                    ?: keystoreProperties["RELEASE_STORE_FILE"] as String
+            )
+            storePassword = findProperty("android.injected.signing.store.password") as String?
+                ?: keystoreProperties["RELEASE_STORE_PASSWORD"] as String
+            keyAlias = findProperty("android.injected.signing.key.alias") as String?
+                ?: keystoreProperties["RELEASE_KEY_ALIAS"] as String
+            keyPassword = findProperty("android.injected.signing.key.password") as String?
+                ?: keystoreProperties["RELEASE_KEY_PASSWORD"] as String
         }
     }
     namespace = "com.junior.projetomvvmcleanxml"
