@@ -57,7 +57,6 @@ class CadastroActivity : AppCompatActivity() {
     private fun cadastrarUser(){
         binding.btnCadastrar.setOnClickListener {
 
-
             val nome = binding.etNomeCadastro.text.toString()
             val email = binding.etEmailCadastro.text.toString().trim()
             val password = binding.etPasswordCadastro.text.toString().trim()
