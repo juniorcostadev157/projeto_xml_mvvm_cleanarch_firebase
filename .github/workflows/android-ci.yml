@@ -51,26 +51,14 @@ jobs:
       - name: 🎨 Rodar Ktlint
         run: ./gradlew ktlintCheck || echo "Ktlint falhou, verifique os avisos"
 
-      - name: 🧹 Rodar Lint (com assinatura)
-        run: ./gradlew lint \
-          -Pandroid.injected.signing.store.file=app/keystore.jks \
-          -Pandroid.injected.signing.store.password=${{ secrets.SIGNING_STORE_PASSWORD }} \
-          -Pandroid.injected.signing.key.alias=${{ secrets.SIGNING_KEY_ALIAS }} \
-          -Pandroid.injected.signing.key.password=${{ secrets.SIGNING_KEY_PASSWORD }}
+      - name: 🧹 Rodar Lint
+        run: ./gradlew lint
 
       - name: 🧪 Rodar Testes Unitários
-        run: ./gradlew test \
-          -Pandroid.injected.signing.store.file=app/keystore.jks \
-          -Pandroid.injected.signing.store.password=${{ secrets.SIGNING_STORE_PASSWORD }} \
-          -Pandroid.injected.signing.key.alias=${{ secrets.SIGNING_KEY_ALIAS }} \
-          -Pandroid.injected.signing.key.password=${{ secrets.SIGNING_KEY_PASSWORD }}
+        run: ./gradlew test
 
       - name: 🧮 Gerar Relatório de Cobertura (Jacoco)
-        run: ./gradlew jacocoTestReport \
-          -Pandroid.injected.signing.store.file=app/keystore.jks \
-          -Pandroid.injected.signing.store.password=${{ secrets.SIGNING_STORE_PASSWORD }} \
-          -Pandroid.injected.signing.key.alias=${{ secrets.SIGNING_KEY_ALIAS }} \
-          -Pandroid.injected.signing.key.password=${{ secrets.SIGNING_KEY_PASSWORD }}
+        run: ./gradlew jacocoTestReport
 
       - name: 📊 Salvar Relatório Jacoco como artefato
         uses: actions/upload-artifact@v4
