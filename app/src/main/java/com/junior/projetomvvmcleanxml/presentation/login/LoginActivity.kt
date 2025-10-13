@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.junior.projetomvvmcleanxml.databinding.ActivityLoginBinding
 import com.junior.projetomvvmcleanxml.presentation.cadastro.CadastroActivity
+import com.junior.projetomvvmcleanxml.presentation.principal.MainScreenActivity
 import com.junior.projetomvvmcleanxml.presentation.utils.InjectContainer
 
 class LoginActivity : AppCompatActivity() {
@@ -74,7 +75,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun navigateToHome() {
-        Toast.makeText(this, "Login realizado com sucesso!", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, MainScreenActivity::class.java)
+        startActivity(intent)
     }
 
     private fun showToast(message: String) {

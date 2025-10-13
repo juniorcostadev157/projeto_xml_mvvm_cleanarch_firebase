@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_list_item"
+    tools:ignore="InvalidNavigation">
+
+    <fragment
+        android:id="@+id/navigation_list_item"
+        android:name="com.junior.projetomvvmcleanxml.presentation.principal.ui.list_item.ListItemFragment"
+        android:label="@string/title_list_item"
+        tools:layout="@layout/fragment_list_item" />
+
+    <fragment
+        android:id="@+id/navigation_create_item"
+        android:name="com.junior.projetomvvmcleanxml.presentation.principal.ui.createitem.CreateItemFragment"
+        android:label="@string/title_create_item"
+        tools:layout="@layout/fragment_create_item" />
+</navigation>
