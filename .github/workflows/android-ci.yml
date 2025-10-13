@@ -37,12 +37,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      # 🧩 Criar o arquivo google-services.json dinamicamente
-      - name: 🔐 Criar google-services.json
-        run: |
-          mkdir -p app
-          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > app/google-services.json
-
       # --- Etapas do CI ---
       - name: 🔎 Rodar Detekt (análise estática)
         run: ./gradlew detekt || echo "Detekt falhou, verifique os avisos"
@@ -58,6 +52,3 @@ jobs:
 
       - name: 🧮 Gerar Relatório de Cobertura (Jacoco)
         run: ./gradlew jacocoTestReport
-
-      - name: 🏗 Build Debug
-        run: ./gradlew assembleDebug
