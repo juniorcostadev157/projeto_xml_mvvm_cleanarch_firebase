@@ -34,17 +34,20 @@ jobs:
 
       - name: 🔐 Criar google-services.json
         run: |
+          # Decodifica e salva o google-services.json na pasta do módulo 'app'
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > app/google-services.json
 
       - name: 🔏 Decodificar Keystore
         run: |
+          # Decodifica e salva o keystore.jks na pasta do módulo 'app'
           echo "${{ secrets.SIGNING_KEYSTORE_BASE64 }}" | base64 --decode > app/keystore.jks
           ls -l app/keystore.jks
 
       - name: 🏗️ Build APK Release (assinado)
         run: |
+          # CORREÇÃO: Usando o caminho ABSOLUTO para o keystore para corrigir o erro de 'file doesn't exist'.
           ./gradlew assembleRelease \
-            -Pandroid.injected.signing.store.file=./app/keystore.jks \
+            -Pandroid.injected.signing.store.file="${{ github.workspace }}/app/keystore.jks" \
             -Pandroid.injected.signing.store.password=${{ secrets.SIGNING_STORE_PASSWORD }} \
             -Pandroid.injected.signing.key.alias=${{ secrets.SIGNING_KEY_ALIAS }} \
             -Pandroid.injected.signing.key.password=${{ secrets.SIGNING_KEY_PASSWORD }}
