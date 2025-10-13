@@ -17,7 +17,7 @@ jobs:
       - name: 📥 Checkout do código
         uses: actions/checkout@v3
 
-      - name: 🔑 Permissão para gradlew
+      - name: 🔑 Dar permissão de execução ao gradlew
         run: chmod +x ./gradlew
 
       - name: ☕️ Configurar JDK 17
@@ -36,19 +36,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      # 🧩 Criar google-services.json a partir do secret
       - name: 🔐 Criar google-services.json
         run: |
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > app/google-services.json
-
-      - name: 🔏 Decodificar Keystore
-        run: |
-          echo "${{ secrets.SIGNING_KEYSTORE_BASE64 }}" | base64 --decode > app/keystore.jks
+          echo "✅ google-services.json criado com sucesso!"
 
       # --- Etapas do CI ---
-      - name: 🔎 Rodar Detekt
+      - name: 🔎 Rodar Detekt (análise estática)
         run: ./gradlew detekt || echo "Detekt falhou, verifique os avisos"
 
-      - name: 🎨 Rodar Ktlint
+      - name: 🎨 Rodar Ktlint (formatação e estilo)
         run: ./gradlew ktlintCheck || echo "Ktlint falhou, verifique os avisos"
 
       - name: 🧹 Rodar Lint
@@ -59,9 +57,3 @@ jobs:
 
       - name: 🧮 Gerar Relatório de Cobertura (Jacoco)
         run: ./gradlew jacocoTestReport
-
-      - name: 📊 Salvar Relatório Jacoco como artefato
-        uses: actions/upload-artifact@v4
-        with:
-          name: jacoco-report
-          path: app/build/reports/jacoco/jacocoTestReport/html
