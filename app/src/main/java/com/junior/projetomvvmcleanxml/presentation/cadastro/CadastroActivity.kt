@@ -69,8 +69,6 @@ class CadastroActivity : AppCompatActivity() {
             }else{
                 viewModel.cadastro(nome, email, confirmPassword)
             }
-
-
         }
     }
 
