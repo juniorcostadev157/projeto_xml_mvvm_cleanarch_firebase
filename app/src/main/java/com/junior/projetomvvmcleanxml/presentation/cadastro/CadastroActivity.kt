@@ -49,6 +49,12 @@ class CadastroActivity : AppCompatActivity() {
             }
         }
 
+
+        cadastrarUser()
+        backButton()
+    }
+
+    private fun cadastrarUser(){
         binding.btnCadastrar.setOnClickListener {
 
             val nome = binding.etNomeCadastro.text.toString()
@@ -66,8 +72,6 @@ class CadastroActivity : AppCompatActivity() {
 
 
         }
-
-        backButton()
     }
 
     private fun showToast(message: String){
