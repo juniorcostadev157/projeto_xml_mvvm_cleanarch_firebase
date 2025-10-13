@@ -39,11 +39,12 @@ jobs:
       - name: 🔏 Decodificar Keystore
         run: |
           echo "${{ secrets.SIGNING_KEYSTORE_BASE64 }}" | base64 --decode > app/keystore.jks
+          ls -l app/keystore.jks
 
       - name: 🏗️ Build APK Release (assinado)
         run: |
           ./gradlew assembleRelease \
-            -Pandroid.injected.signing.store.file=app/keystore.jks \
+            -Pandroid.injected.signing.store.file=./app/keystore.jks \
             -Pandroid.injected.signing.store.password=${{ secrets.SIGNING_STORE_PASSWORD }} \
             -Pandroid.injected.signing.key.alias=${{ secrets.SIGNING_KEY_ALIAS }} \
             -Pandroid.injected.signing.key.password=${{ secrets.SIGNING_KEY_PASSWORD }}
