@@ -62,5 +62,3 @@ jobs:
           groups: testers
           file: app/build/outputs/apk/release/app-release.apk
           releaseNotes: "🚀 Build via CI/CD - Commit ${{ github.sha }} por ${{ github.actor }} em ${{ github.ref_name }}"
-
-
