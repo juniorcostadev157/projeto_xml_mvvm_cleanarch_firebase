@@ -15,22 +15,29 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
-
 android {
     signingConfigs {
         create("release") {
-            storeFile = file(
-                findProperty("android.injected.signing.store.file") as String?
-                    ?: keystoreProperties["RELEASE_STORE_FILE"] as String
-            )
-            storePassword = findProperty("android.injected.signing.store.password") as String?
-                ?: keystoreProperties["RELEASE_STORE_PASSWORD"] as String
-            keyAlias = findProperty("android.injected.signing.key.alias") as String?
-                ?: keystoreProperties["RELEASE_KEY_ALIAS"] as String
-            keyPassword = findProperty("android.injected.signing.key.password") as String?
-                ?: keystoreProperties["RELEASE_KEY_PASSWORD"] as String
+            val storeFilePath = findProperty("android.injected.signing.store.file") as String?
+                ?: keystoreProperties["RELEASE_STORE_FILE"] as? String
+            val storePassword = findProperty("android.injected.signing.store.password") as String?
+                ?: keystoreProperties["RELEASE_STORE_PASSWORD"] as? String
+            val keyAlias = findProperty("android.injected.signing.key.alias") as String?
+                ?: keystoreProperties["RELEASE_KEY_ALIAS"] as? String
+            val keyPassword = findProperty("android.injected.signing.key.password") as String?
+                ?: keystoreProperties["RELEASE_KEY_PASSWORD"] as? String
+
+            if (storeFilePath != null && storePassword != null && keyAlias != null && keyPassword != null) {
+                storeFile = file(storeFilePath)
+                this.storePassword = storePassword
+                this.keyAlias = keyAlias
+                this.keyPassword = keyPassword
+            } else {
+                println("⚠️ Configurações de assinatura não encontradas. Release build não será assinada.")
+            }
         }
     }
+
     namespace = "com.junior.projetomvvmcleanxml"
     compileSdk = 36
 
@@ -46,7 +53,6 @@ android {
     }
 
     buildTypes {
-
         release {
             signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = false
@@ -59,24 +65,18 @@ android {
         debug {
             enableUnitTestCoverage = true
         }
-
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
 
-    viewBinding{
+    viewBinding {
         enable = true
     }
 
@@ -106,12 +106,9 @@ android {
         executionData.setFrom(fileTree(layout.buildDirectory) {
             include("jacoco/testDebugUnitTest.exec")
         })
-
     }
 
-
     dependencies {
-
         implementation(libs.androidx.core.ktx)
         implementation(libs.androidx.appcompat)
         implementation(libs.material)
@@ -120,11 +117,6 @@ android {
         testImplementation(libs.junit)
         androidTestImplementation(libs.androidx.junit)
         androidTestImplementation(libs.androidx.espresso.core)
-
-        implementation(libs.androidx.appcompat)
-        implementation(libs.material)
-        implementation(libs.androidx.activity)
-        implementation(libs.androidx.constraintlayout)
 
         // Firebase BOM to manage versions
         implementation(platform(libs.firebase.bom))
@@ -137,8 +129,7 @@ android {
         implementation(libs.firebase.firestore.ktx)
 
         // viewModelScope
-        implementation (libs.androidx.lifecycle.viewmodelKtx)
-        implementation (libs.androidx.lifecycle.livedataKtx)
+        implementation(libs.androidx.lifecycle.viewmodelKtx)
+        implementation(libs.androidx.lifecycle.livedataKtx)
     }
 }
-
