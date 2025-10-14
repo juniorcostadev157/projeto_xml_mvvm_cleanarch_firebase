@@ -9,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import com.junior.projetomvvmcleanxml.core.hideKeyboard
 import com.junior.projetomvvmcleanxml.databinding.ActivityLoginBinding
 import com.junior.projetomvvmcleanxml.presentation.cadastro.CadastroActivity
 import com.junior.projetomvvmcleanxml.presentation.principal.MainScreenActivity
 import com.junior.projetomvvmcleanxml.presentation.utils.InjectContainer
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -49,7 +51,14 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        buttonLogin()
+        navigateToCadastro()
+    }
+
+    private fun buttonLogin(){
+
         binding.btnLogin.setOnClickListener {
+            hideKeyboard()
             val email = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
 
@@ -59,13 +68,12 @@ class LoginActivity : AppCompatActivity() {
                 viewModel.login(email, password)
             }
         }
-        navigateToCadastro()
     }
 
     private fun showLoading() {
         binding.progressLoading.visibility = View.VISIBLE
         binding.btnLogin.isEnabled = false
-        binding.btnLogin.alpha = 0.6f // leve transparência pra parecer desabilitado
+        binding.btnLogin.alpha = 0.6f
     }
 
     private fun hideLoading() {
