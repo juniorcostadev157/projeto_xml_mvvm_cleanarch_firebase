@@ -19,6 +19,7 @@ import com.junior.projetomvvmcleanxml.presentation.utils.InjectContainer
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var viewModel: LoginViewModel
+    private lateinit var sessionViewModel: SessionViewModel
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,10 +33,26 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        InjectContainer.init(applicationContext)
+
+
 
         val factory = InjectContainer.loginFactory
         viewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
+        sessionViewModel = ViewModelProvider(this, InjectContainer.sessionFactory)[SessionViewModel::class.java]
 
+        buttonLogin()
+        setupObservers()
+        navigateToCadastro()
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        sessionViewModel.checkSession()
+    }
+
+    private fun setupObservers() {
         viewModel.loginStage.observe(this) { state ->
             when (state) {
                 is LoginUiState.Empty -> hideLoading()
@@ -51,8 +68,12 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        buttonLogin()
-        navigateToCadastro()
+        sessionViewModel.isLoggedIn.observe(this) { isLogged ->
+            if (isLogged) {
+                navigateToHome()
+                finish()
+            }
+        }
     }
 
     private fun buttonLogin(){
@@ -85,6 +106,8 @@ class LoginActivity : AppCompatActivity() {
     private fun navigateToHome() {
         val intent = Intent(this, MainScreenActivity::class.java)
         startActivity(intent)
+        finish()
+
     }
 
     private fun showToast(message: String) {
