@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import com.junior.projetomvvmcleanxml.core.hideKeyboard
 import com.junior.projetomvvmcleanxml.databinding.ActivityCadastroBinding
 import com.junior.projetomvvmcleanxml.presentation.utils.InjectContainer
 
@@ -56,7 +57,7 @@ class CadastroActivity : AppCompatActivity() {
 
     private fun cadastrarUser(){
         binding.btnCadastrar.setOnClickListener {
-
+            hideKeyboard()
             val nome = binding.etNomeCadastro.text.toString()
             val email = binding.etEmailCadastro.text.toString().trim()
             val password = binding.etPasswordCadastro.text.toString().trim()

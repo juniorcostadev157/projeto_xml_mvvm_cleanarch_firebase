@@ -99,17 +99,15 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp"
+        android:indeterminate="true"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/btn_login"
         app:layout_constraintBottom_toTopOf="@id/tv_register_link"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark" />
-
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_login" />
 
 
     <TextView
