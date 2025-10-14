@@ -12,7 +12,9 @@
     <string name="field_nome">
             Digite seu nome
         </string>
-
+    <string name="field_item">
+            Digite o nome da item
+        </string>
     <string name="field_confirm_password">
             Confirme sua senha
         </string>
