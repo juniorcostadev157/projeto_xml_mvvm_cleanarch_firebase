@@ -1,5 +1,6 @@
 package com.junior.projetomvvmcleanxml.domain.usecase.authenticationusecase
 
+
 import com.junior.projetomvvmcleanxml.data.repository.authrepository.AuthError
 import com.junior.projetomvvmcleanxml.domain.repository.AuthRepository
 
@@ -18,7 +19,9 @@ class LoginValidationUseCase(
 
         val result = repository.login(email, password)
         return if (result.isSuccess){
-            ValidationResult(true)
+            val useId = result.getOrNull()
+            ValidationResult(true, data = useId)
+
         }else{
 
             ValidationResult(false, (result.exceptionOrNull() as? AuthError)?.messageError)

@@ -1,4 +1,4 @@
-package com.junior.projetomvvmcleanxml.data.datasource
+package com.junior.projetomvvmcleanxml.data.datasource.remote
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.junior.projetomvvmcleanxml.data.model.UserEntity
