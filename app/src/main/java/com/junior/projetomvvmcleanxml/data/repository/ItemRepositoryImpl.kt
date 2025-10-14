@@ -1,5 +1,6 @@
 package com.junior.projetomvvmcleanxml.data.repository
 
+import android.util.Log
 import com.junior.projetomvvmcleanxml.data.datasource.FirebaseItemDataSource
 import com.junior.projetomvvmcleanxml.data.model.item.toDomain
 import com.junior.projetomvvmcleanxml.domain.model.item.Item
