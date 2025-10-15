@@ -17,6 +17,7 @@ import com.junior.projetomvvmcleanxml.domain.usecase.authenticationusecase.Logou
 import com.junior.projetomvvmcleanxml.domain.usecase.item.CreateItemUseCase
 import com.junior.projetomvvmcleanxml.domain.usecase.item.ListItemUseCase
 import com.junior.projetomvvmcleanxml.domain.usecase.userpreference.ClearUseSessionUseCase
+import com.junior.projetomvvmcleanxml.domain.usecase.userpreference.GetNameSessionUseCase
 import com.junior.projetomvvmcleanxml.domain.usecase.users.CreateUsersUseCase
 import com.junior.projetomvvmcleanxml.domain.usecase.userpreference.GetUserIdSessionUseCase
 import com.junior.projetomvvmcleanxml.domain.usecase.userpreference.SaveUserSessionUseCase
@@ -99,11 +100,13 @@ object InjectContainer {
     //saveSession
     private val getUserSessionUseCase by lazy { GetUserIdSessionUseCase(userSessionDataSource) }
     private val clearUseSessionUseCase by lazy { ClearUseSessionUseCase(userSessionDataSource) }
+    private val getNameSessionUseCase by lazy { GetNameSessionUseCase(userSessionDataSource) }
     val sessionFactory: GenericViewModelFactory<SessionViewModel> by lazy {
         GenericViewModelFactory {
             SessionViewModel(
                 getUserSession = getUserSessionUseCase,
                 saveUserSession = saveUserSessionUseCase,
+                getNameSessionUseCase = getNameSessionUseCase
 
             )
 

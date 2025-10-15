@@ -48,6 +48,7 @@ class MainScreenActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         sessionViewModel.checkSession()
+
     }
 
     private fun navigateToLogin(){

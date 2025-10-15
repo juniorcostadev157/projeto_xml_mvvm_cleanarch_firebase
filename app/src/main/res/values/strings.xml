@@ -54,6 +54,7 @@
     <string name="title_list_item">Listar Itens</string>
     <string name="title_create_item">Criar Item</string>
     <string name="title_notifications">Notifications</string>
+    <string name="hello_user">Hello: %1$s</string>
     "
 
 </resources>
