@@ -12,7 +12,9 @@
     <string name="field_nome">
             Digite seu nome
         </string>
-
+    <string name="field_item">
+            Digite o nome da item
+        </string>
     <string name="field_confirm_password">
             Confirme sua senha
         </string>
@@ -40,6 +42,19 @@
     <string name="content_description_back_button">
         Voltar
     </string>
+
+    <string name="empty_item">
+        Nenhum item cadastrado
+    </string>
+
+    <string name="txt_logout">
+        Sair
+    </string>
+    <string name="title_activity_main_screen">MainScreenActivity</string>
+    <string name="title_list_item">Listar Itens</string>
+    <string name="title_create_item">Criar Item</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="hello_user">Hello: %1$s</string>
     "
 
 </resources>

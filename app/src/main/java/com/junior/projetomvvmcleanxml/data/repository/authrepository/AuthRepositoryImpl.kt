@@ -4,7 +4,7 @@ import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
-import com.junior.projetomvvmcleanxml.data.datasource.FirebaseAuthDataSource
+import com.junior.projetomvvmcleanxml.data.datasource.remote.FirebaseAuthDataSource
 import com.junior.projetomvvmcleanxml.domain.repository.AuthRepository
 
 class AuthRepositoryImpl(
@@ -31,6 +31,10 @@ class AuthRepositoryImpl(
         } catch (e: Exception) {
             Result.failure(mapFirebaseError(e))
         }
+    }
+
+    override fun logout() {
+        data.logout()
     }
 
     private fun mapFirebaseError(e: Throwable): AuthError {
