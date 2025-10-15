@@ -13,12 +13,14 @@ import com.junior.projetomvvmcleanxml.data.repository.UserRepositoryImpl
 import com.junior.projetomvvmcleanxml.data.repository.authrepository.AuthRepositoryImpl
 import com.junior.projetomvvmcleanxml.domain.usecase.authenticationusecase.CreateRegisterValidationUseCase
 import com.junior.projetomvvmcleanxml.domain.usecase.authenticationusecase.LoginValidationUseCase
+import com.junior.projetomvvmcleanxml.domain.usecase.authenticationusecase.LogoutUseCase
 import com.junior.projetomvvmcleanxml.domain.usecase.item.CreateItemUseCase
 import com.junior.projetomvvmcleanxml.domain.usecase.item.ListItemUseCase
-import com.junior.projetomvvmcleanxml.domain.usecase.users.ClearUseSessionUseCase
+import com.junior.projetomvvmcleanxml.domain.usecase.userpreference.ClearUseSessionUseCase
 import com.junior.projetomvvmcleanxml.domain.usecase.users.CreateUsersUseCase
-import com.junior.projetomvvmcleanxml.domain.usecase.users.GetUserSessionUseCase
-import com.junior.projetomvvmcleanxml.domain.usecase.users.SaveUserSessionUseCase
+import com.junior.projetomvvmcleanxml.domain.usecase.userpreference.GetUserIdSessionUseCase
+import com.junior.projetomvvmcleanxml.domain.usecase.userpreference.SaveUserSessionUseCase
+import com.junior.projetomvvmcleanxml.domain.usecase.users.GetUserByIdUseCase
 import com.junior.projetomvvmcleanxml.presentation.cadastro.CadastroViewModel
 import com.junior.projetomvvmcleanxml.presentation.login.LoginViewModel
 import com.junior.projetomvvmcleanxml.presentation.login.SessionViewModel
@@ -38,10 +40,15 @@ object InjectContainer {
     private val loginValidationUseCase by lazy { LoginValidationUseCase(authRepository) }
     private val userSessionDataSource by lazy { UsersPreference(appContext) }
     private val saveUserSessionUseCase by lazy { SaveUserSessionUseCase(userSessionDataSource) }
-
+    private val getUserByIdUseCase by lazy { GetUserByIdUseCase(userRepository) }
 
     val loginFactory: GenericViewModelFactory<LoginViewModel> by lazy {
-        GenericViewModelFactory { LoginViewModel(loginValidationUseCase, saveUserSessionUseCase) }
+        GenericViewModelFactory {
+            LoginViewModel(
+                loginValidationUseCase,
+                saveUserSessionUseCase,
+                getUserByIdUseCase
+            ) }
     }
 
     //cadastro
@@ -55,7 +62,9 @@ object InjectContainer {
         GenericViewModelFactory{
             CadastroViewModel(
                 createUsers = createUsersUseCase,
-                createRegister = createRegisterValidationUseCase
+                createRegister = createRegisterValidationUseCase,
+                saveUserSessionUseCase = saveUserSessionUseCase,
+                getUserByIdUseCase = getUserByIdUseCase
             )
         }
     }
@@ -64,6 +73,7 @@ object InjectContainer {
     private val itemDataSource by lazy { FirebaseItemDataSource(firestore) }
     private val itemRepository by lazy { ItemRepositoryImpl(itemDataSource) }
     private val createItemUseCase by lazy { CreateItemUseCase(itemRepository) }
+    private val logoutUseCase by lazy { LogoutUseCase(authRepository) }
 
     val createItemFactory: GenericViewModelFactory<CreateItemViewModel> by lazy {
         GenericViewModelFactory{
@@ -75,21 +85,26 @@ object InjectContainer {
     private val listItemUseCase by lazy { ListItemUseCase(itemRepository) }
     val listItemFactory: GenericViewModelFactory<ListItemViewModel> by lazy {
         GenericViewModelFactory {
-            ListItemViewModel(listItemUseCase)
+            ListItemViewModel(
+                getAllItem =  listItemUseCase,
+                logoutUseCase = logoutUseCase,
+                clearUseSessionUseCase = clearUseSessionUseCase
+                )
 
         }
 
 
     }
 
-    private val getUserSessionUseCase by lazy { GetUserSessionUseCase(userSessionDataSource) }
+    //saveSession
+    private val getUserSessionUseCase by lazy { GetUserIdSessionUseCase(userSessionDataSource) }
     private val clearUseSessionUseCase by lazy { ClearUseSessionUseCase(userSessionDataSource) }
     val sessionFactory: GenericViewModelFactory<SessionViewModel> by lazy {
         GenericViewModelFactory {
             SessionViewModel(
                 getUserSession = getUserSessionUseCase,
                 saveUserSession = saveUserSessionUseCase,
-                clearUseSession = clearUseSessionUseCase
+
             )
 
         }

@@ -1,5 +1,6 @@
 package com.junior.projetomvvmcleanxml.presentation.cadastro
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -10,12 +11,15 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.junior.projetomvvmcleanxml.core.hideKeyboard
 import com.junior.projetomvvmcleanxml.databinding.ActivityCadastroBinding
+import com.junior.projetomvvmcleanxml.presentation.login.SessionViewModel
+import com.junior.projetomvvmcleanxml.presentation.principal.MainScreenActivity
 import com.junior.projetomvvmcleanxml.presentation.utils.InjectContainer
 
 class CadastroActivity : AppCompatActivity() {
 
     private lateinit var viewModel: CadastroViewModel
     private lateinit var binding: ActivityCadastroBinding
+    private lateinit var sessionViewModel: SessionViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,28 +36,35 @@ class CadastroActivity : AppCompatActivity() {
 
         val factory = InjectContainer.cadastroFactory
         viewModel = ViewModelProvider(this, factory)[CadastroViewModel::class.java]
-
-        viewModel.cadastroState.observe(this){state->
-
-            when(state){
-                is CadastroUiState.Empty -> hideLoading()
-                is CadastroUiState.Loading -> showLoading()
-                is CadastroUiState.Success ->{
-                    hideLoading()
-                    navigateToHome()
-                }
-
-                is CadastroUiState.Error -> {
-                    hideLoading()
-                    showToast(state.message)
-                }
-            }
-        }
+        sessionViewModel = ViewModelProvider(this, InjectContainer.sessionFactory)[SessionViewModel::class.java]
 
 
+
+        setupObservers()
         cadastrarUser()
         backButton()
     }
+
+   private fun setupObservers(){
+       viewModel.cadastroState.observe(this){state->
+
+           when(state){
+               is CadastroUiState.Empty -> hideLoading()
+               is CadastroUiState.Loading -> showLoading()
+               is CadastroUiState.Success ->{
+                   hideLoading()
+                   navigateToHome()
+               }
+
+               is CadastroUiState.Error -> {
+                   hideLoading()
+                   showToast(state.message)
+               }
+           }
+       }
+   }
+
+
 
     private fun cadastrarUser(){
         binding.btnCadastrar.setOnClickListener {
@@ -89,7 +100,9 @@ class CadastroActivity : AppCompatActivity() {
     }
 
     private fun navigateToHome(){
-        Toast.makeText(this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, MainScreenActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun backButton(){

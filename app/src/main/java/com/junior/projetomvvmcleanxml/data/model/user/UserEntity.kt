@@ -1,4 +1,4 @@
-package com.junior.projetomvvmcleanxml.data.model
+package com.junior.projetomvvmcleanxml.data.model.user
 
 data class UserEntity (
     val id: String= "",

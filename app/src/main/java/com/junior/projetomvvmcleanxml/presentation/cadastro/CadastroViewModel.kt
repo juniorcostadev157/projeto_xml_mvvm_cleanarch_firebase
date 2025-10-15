@@ -6,11 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.junior.projetomvvmcleanxml.domain.usecase.authenticationusecase.CreateRegisterValidationUseCase
 import com.junior.projetomvvmcleanxml.domain.usecase.users.CreateUsersUseCase
+import com.junior.projetomvvmcleanxml.domain.usecase.userpreference.SaveUserSessionUseCase
+import com.junior.projetomvvmcleanxml.domain.usecase.users.GetUserByIdUseCase
 import kotlinx.coroutines.launch
 
 class CadastroViewModel (
     private val createUsers: CreateUsersUseCase,
-    private val createRegister: CreateRegisterValidationUseCase
+    private val createRegister: CreateRegisterValidationUseCase,
+    private val saveUserSessionUseCase: SaveUserSessionUseCase,
+    private val getUserByIdUseCase: GetUserByIdUseCase
+
 ): ViewModel() {
 
     private val _cadastroState = MutableLiveData<CadastroUiState>(CadastroUiState.Empty)
@@ -22,8 +27,18 @@ class CadastroViewModel (
         viewModelScope.launch {
             val validation = createRegister(email, password)
             if (validation.success){
+
+
+                validation.data?.let {userId->
+                    createUsers(nome = nome, email = email, userId)
+                    val infoUser = getUserByIdUseCase(validation.data)
+                    infoUser?.let {
+                        saveUserSessionUseCase(it.id ,  it.nome)
+                    }
+
+                }
                 _cadastroState.value = CadastroUiState.Success
-                createUsers(nome = nome, email = email)
+
             }else{
                 _cadastroState.value = CadastroUiState.Error(validation.errorMessage ?: "Erro desconhecido")
             }

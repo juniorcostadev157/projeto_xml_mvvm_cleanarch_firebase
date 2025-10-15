@@ -1,6 +1,6 @@
 package com.junior.projetomvvmcleanxml.domain.model.user
 
-import com.junior.projetomvvmcleanxml.data.model.UserEntity
+import com.junior.projetomvvmcleanxml.data.model.user.UserEntity
 
 fun Users.toResponse() = UserEntity(
     id = this.id,
