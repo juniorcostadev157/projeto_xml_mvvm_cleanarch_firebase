@@ -107,6 +107,9 @@ android {
             include("jacoco/testDebugUnitTest.exec")
         })
     }
+    buildFeatures {
+        viewBinding = true
+    }
 
     dependencies {
         implementation(libs.androidx.core.ktx)
@@ -132,4 +135,15 @@ android {
         implementation(libs.androidx.lifecycle.viewmodelKtx)
         implementation(libs.androidx.lifecycle.livedataKtx)
     }
+}
+dependencies {
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.material)
+    implementation(libs.androidx.lifecycle.livedataKtx)
+    implementation(libs.androidx.lifecycle.viewmodelKtx)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.cardview)
 }

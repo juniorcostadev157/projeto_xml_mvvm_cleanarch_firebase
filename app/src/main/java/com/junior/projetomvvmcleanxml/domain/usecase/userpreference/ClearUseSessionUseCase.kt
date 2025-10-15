@@ -1,0 +1,9 @@
+package com.junior.projetomvvmcleanxml.domain.usecase.userpreference
+
+import com.junior.projetomvvmcleanxml.domain.repository.UserSessionDataSource
+
+class ClearUseSessionUseCase(private val repository: UserSessionDataSource) {
+    operator fun invoke(){
+        repository.clear()
+    }
+}

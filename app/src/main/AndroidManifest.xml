@@ -12,6 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoMVVMCleanXML">
         <activity
+            android:name=".presentation.principal.MainScreenActivity"
+            android:exported="false"
+            android:label="@string/title_activity_main_screen"
+            android:windowSoftInputMode="adjustPan"
+            />
+
+        <activity
             android:name=".presentation.cadastro.CadastroActivity"
             android:exported="false" />
         <activity
