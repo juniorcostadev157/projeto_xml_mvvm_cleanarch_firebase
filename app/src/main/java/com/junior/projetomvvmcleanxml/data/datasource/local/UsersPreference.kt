@@ -9,15 +9,29 @@ class UsersPreference( context: Context): UserSessionDataSource {
     private val prefs = context.getSharedPreferences("user_session", Context.MODE_PRIVATE)
     private val TAG = "UsersPreference"
 
-    override fun saveUserId(userId: String) {
+    override fun saveUserId(userId: String, name: String) {
+
+        prefs.edit {
+            putString("user_id", userId)
+            putString("name", name)
+        }
+
         Log.d(TAG, "🔹 Salvando userId: $userId")
-        prefs.edit { putString("user_id", userId) }
+        Log.d(TAG, "🔹 Salvando name: $name")
     }
 
     override fun getUserId(): String?{
         val userId =  prefs.getString("user_id", null)
         Log.d(TAG, "🔹 Salvando userId: $userId")
+
         return userId
+
+    }
+
+    override fun getUserName(): String? {
+        val name = prefs.getString("name", null)
+        Log.d(TAG, "🔹 Salvando userId: $name")
+        return name
 
     }
 

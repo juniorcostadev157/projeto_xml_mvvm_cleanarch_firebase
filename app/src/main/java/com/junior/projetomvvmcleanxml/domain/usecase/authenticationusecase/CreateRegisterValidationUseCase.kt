@@ -18,7 +18,8 @@ class CreateRegisterValidationUseCase(
         val result  = repository.register(email, password)
 
         return if (result.isSuccess){
-            ValidationResult(true)
+
+            ValidationResult(true, data =result.getOrNull())
         }else{
             ValidationResult(false, (result.exceptionOrNull() as? AuthError)?.messageError)
         }

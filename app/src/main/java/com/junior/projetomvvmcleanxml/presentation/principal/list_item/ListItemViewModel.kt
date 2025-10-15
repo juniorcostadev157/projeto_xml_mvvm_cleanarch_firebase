@@ -1,15 +1,21 @@
 package com.junior.projetomvvmcleanxml.presentation.principal.list_item
 
 
-import android.util.Log
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.junior.projetomvvmcleanxml.domain.usecase.authenticationusecase.LogoutUseCase
 import com.junior.projetomvvmcleanxml.domain.usecase.item.ListItemUseCase
+import com.junior.projetomvvmcleanxml.domain.usecase.userpreference.ClearUseSessionUseCase
 import kotlinx.coroutines.launch
 
-class ListItemViewModel(private val getAllItem: ListItemUseCase) : ViewModel() {
+class ListItemViewModel(
+    private val getAllItem: ListItemUseCase,
+    private val logoutUseCase: LogoutUseCase,
+    private val clearUseSessionUseCase: ClearUseSessionUseCase
+) : ViewModel() {
 
     private val _uiState = MutableLiveData<ListItemUiState>()
     val uiState: LiveData<ListItemUiState> = _uiState
@@ -35,6 +41,13 @@ class ListItemViewModel(private val getAllItem: ListItemUseCase) : ViewModel() {
             }
         }
     }
+
+    fun logout(){
+        logoutUseCase()
+        clearUseSessionUseCase()
+    }
+
+
 
 
 }

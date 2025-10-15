@@ -33,6 +33,10 @@ class AuthRepositoryImpl(
         }
     }
 
+    override fun logout() {
+        data.logout()
+    }
+
     private fun mapFirebaseError(e: Throwable): AuthError {
         if (e is FirebaseNetworkException) return AuthError.NoInternetConnection
         if (e is AuthError) return e
