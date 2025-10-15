@@ -1,5 +1,6 @@
 package com.junior.projetomvvmcleanxml.presentation.principal.list_item
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.junior.projetomvvmcleanxml.R
 import com.junior.projetomvvmcleanxml.databinding.FragmentListItemBinding
 import com.junior.projetomvvmcleanxml.presentation.login.LoginActivity
+import com.junior.projetomvvmcleanxml.presentation.login.SessionViewModel
 import com.junior.projetomvvmcleanxml.presentation.principal.adapter.AdapterItem
 import com.junior.projetomvvmcleanxml.presentation.utils.InjectContainer
 
@@ -20,6 +23,7 @@ class ListItemFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: ListItemViewModel
+    private lateinit var sessionViewModel: SessionViewModel
 
 
     override fun onCreateView(
@@ -32,11 +36,14 @@ class ListItemFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
         val factory = InjectContainer.listItemFactory
+        val sessionFactory = InjectContainer.sessionFactory
         viewModel = ViewModelProvider(this, factory)[ListItemViewModel::class.java]
+        sessionViewModel = ViewModelProvider(this, sessionFactory)[SessionViewModel::class.java]
 
 
         val recyclerItems = binding.recylerItems
@@ -69,6 +76,9 @@ class ListItemFragment : Fragment() {
                 is ListItemUiState.Error -> hideLoading()
             }
         }
+        val name = sessionViewModel.getNomeUserSession()
+        binding.txtNome.text = getString(R.string.hello_user, name)
+
 
         logout()
     }
