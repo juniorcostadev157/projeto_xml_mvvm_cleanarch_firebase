@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     jacoco
     id("com.google.gms.google-services")
+    alias(libs.plugins.google.firebase.crashlytics)
 }
 
 val keystoreProperties = Properties()
@@ -134,16 +135,18 @@ android {
         // viewModelScope
         implementation(libs.androidx.lifecycle.viewmodelKtx)
         implementation(libs.androidx.lifecycle.livedataKtx)
+
+
+        implementation(libs.androidx.appcompat)
+        implementation(libs.androidx.constraintlayout)
+        implementation(libs.material)
+        implementation(libs.androidx.lifecycle.livedataKtx)
+        implementation(libs.androidx.lifecycle.viewmodelKtx)
+        implementation(libs.androidx.navigation.fragment.ktx)
+        implementation(libs.androidx.navigation.ui.ktx)
+        implementation(libs.androidx.recyclerview)
+        implementation(libs.androidx.cardview)
+        implementation(libs.firebase.crashlytics)
     }
 }
-dependencies {
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.material)
-    implementation(libs.androidx.lifecycle.livedataKtx)
-    implementation(libs.androidx.lifecycle.viewmodelKtx)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.recyclerview)
-    implementation(libs.androidx.cardview)
-}
+

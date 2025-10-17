@@ -4,6 +4,7 @@ import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.junior.projetomvvmcleanxml.core.CrashlyticsLogger
 import com.junior.projetomvvmcleanxml.data.datasource.remote.FirebaseAuthDataSource
 import com.junior.projetomvvmcleanxml.domain.repository.AuthRepository
 
@@ -18,6 +19,7 @@ class AuthRepositoryImpl(
                 onFailure = { e -> Result.failure(mapFirebaseError(e)) }
             )
         } catch (e: Exception) {
+            CrashlyticsLogger.logCrash(e)
             Result.failure(mapFirebaseError(e))
         }
     }
@@ -29,6 +31,7 @@ class AuthRepositoryImpl(
                 onFailure = { e -> Result.failure(mapFirebaseError(e)) }
             )
         } catch (e: Exception) {
+            CrashlyticsLogger.logCrash(e)
             Result.failure(mapFirebaseError(e))
         }
     }

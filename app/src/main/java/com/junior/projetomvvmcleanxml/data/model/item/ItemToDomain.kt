@@ -4,5 +4,6 @@ import com.junior.projetomvvmcleanxml.domain.model.item.Item
 
 fun ItemEntity.toDomain() = Item(
     id = this.id,
-    name = this.name
+    name = this.name,
+    createdBy = this.createdBy
 )
