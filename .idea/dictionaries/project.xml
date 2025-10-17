@@ -22,16 +22,20 @@
       <w>decodifica</w>
       <w>desconhecido</w>
       <w>encontradas</w>
+      <w>encontrado</w>
       <w>entrar</w>
       <w>enviar</w>
       <w>erro</w>
       <w>fraca</w>
       <w>grafite</w>
+      <w>importar</w>
       <w>inesperado</w>
+      <w>informado</w>
       <w>invalido</w>
       <w>inválidas</w>
       <w>itens</w>
       <w>ktlint</w>
+      <w>logado</w>
       <w>menos</w>
       <w>mensagem</w>
       <w>nenhum</w>
@@ -44,8 +48,10 @@
       <w>projetomvvmcleanxml</w>
       <w>realizado</w>
       <w>rodar</w>
+      <w>salvando</w>
       <w>senha</w>
       <w>senhas</w>
+      <w>usuário</w>
       <w>vindo</w>
       <w>voltar</w>
     </words>

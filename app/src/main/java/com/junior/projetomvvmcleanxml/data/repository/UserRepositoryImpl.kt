@@ -1,5 +1,6 @@
 package com.junior.projetomvvmcleanxml.data.repository
 
+import com.junior.projetomvvmcleanxml.core.CrashlyticsLogger
 import com.junior.projetomvvmcleanxml.data.datasource.remote.FirebaseUserDataSource
 import com.junior.projetomvvmcleanxml.data.model.user.toDomain
 import com.junior.projetomvvmcleanxml.domain.model.user.Users
@@ -15,6 +16,9 @@ class UserRepositoryImpl (
     }
 
     override suspend fun getUserById(userId: String): Users? {
+
         return data.getUserById(userId)?.toDomain()
+
+
     }
 }
