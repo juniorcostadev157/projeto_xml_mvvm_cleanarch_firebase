@@ -17,12 +17,13 @@ object AnalyticsLogger {
     }
     // eventos com parametros
     fun logEvent(eventName: String, params: Map<String, String>){
-        val bundle = Bundle()
+        val bundle = Bundle().apply {
             params.forEach { (key, value)->
-                bundle.putString(key, value)
+                putString(key, value)
             }
-        analytics.logEvent(eventName, bundle)
+        }
 
+        analytics.logEvent(eventName, bundle)
 
     }
 
