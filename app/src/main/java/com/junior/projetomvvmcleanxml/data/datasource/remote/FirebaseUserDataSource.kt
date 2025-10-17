@@ -2,6 +2,7 @@ package com.junior.projetomvvmcleanxml.data.datasource.remote
 
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.junior.projetomvvmcleanxml.core.CrashlyticsLogger
 import com.junior.projetomvvmcleanxml.data.model.user.UserEntity
 import kotlinx.coroutines.tasks.await
 
@@ -18,20 +19,25 @@ class FirebaseUserDataSource (
         }
     }
 
-     suspend fun getUserById(userId: String):UserEntity?{
+    suspend fun getUserById(userId: String): UserEntity? {
+        return try {
+            val querySnapshot = firestore.collection("users")
+                .whereEqualTo("id", userId)
+                .get()
+                .await()
 
+            querySnapshot.toObjects(UserEntity::class.java).firstOrNull()
+        } catch (e: Exception) {
+            // Adiciona contexto útil
+            CrashlyticsLogger.setUserId(userId)
+            CrashlyticsLogger.setCustomKey("data_source", "FirebaseUserDataSource")
+            CrashlyticsLogger.logCrash(e)
 
-
-        val querySnapshot = firestore.collection("users")
-            .whereEqualTo("id", userId).get().await()
-
-         val user =querySnapshot.toObjects(UserEntity::class.java).firstOrNull()
-
-
-
-         return user
-
+            // Retorna null para o app continuar funcionando
+           null
+        }
     }
+
 
 
 

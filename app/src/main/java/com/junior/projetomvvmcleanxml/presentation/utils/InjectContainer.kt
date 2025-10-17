@@ -78,7 +78,10 @@ object InjectContainer {
 
     val createItemFactory: GenericViewModelFactory<CreateItemViewModel> by lazy {
         GenericViewModelFactory{
-            CreateItemViewModel(createItemUseCase)
+            CreateItemViewModel(
+                createItemUseCase,
+                getUserSessionUseCase
+                )
         }
     }
 
