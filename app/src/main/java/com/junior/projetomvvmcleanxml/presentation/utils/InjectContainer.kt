@@ -4,7 +4,9 @@ package com.junior.projetomvvmcleanxml.presentation.utils
 import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.junior.projetomvvmcleanxml.data.datasource.local.UsersPreference
+import com.junior.projetomvvmcleanxml.data.datasource.local.room.AppDatabase
+import com.junior.projetomvvmcleanxml.data.datasource.local.room.RoomItemDataSource
+import com.junior.projetomvvmcleanxml.data.datasource.local.sharedpreference.UsersPreference
 import com.junior.projetomvvmcleanxml.data.datasource.remote.FirebaseAuthDataSource
 import com.junior.projetomvvmcleanxml.data.datasource.remote.FirebaseItemDataSource
 import com.junior.projetomvvmcleanxml.data.datasource.remote.FirebaseUserDataSource
@@ -27,6 +29,7 @@ import com.junior.projetomvvmcleanxml.presentation.login.LoginViewModel
 import com.junior.projetomvvmcleanxml.presentation.login.SessionViewModel
 import com.junior.projetomvvmcleanxml.presentation.principal.createitem.CreateItemViewModel
 import com.junior.projetomvvmcleanxml.presentation.principal.list_item.ListItemViewModel
+import com.junior.projetomvvmcleanxml.worker.CustomWorkerFactory
 
 object InjectContainer {
     private lateinit var appContext: Context
@@ -71,8 +74,11 @@ object InjectContainer {
     }
 
     //cadastroItem
+    private val appDatabase by lazy { AppDatabase.getInstance(appContext) }
+    private val customWorkerFactory by lazy { CustomWorkerFactory(itemRepository) }
+    private val roomItemDataSource by lazy { RoomItemDataSource(appDatabase.itemDao()) }
     private val itemDataSource by lazy { FirebaseItemDataSource(firestore) }
-    private val itemRepository by lazy { ItemRepositoryImpl(itemDataSource) }
+    val itemRepository by lazy { ItemRepositoryImpl(itemDataSource, roomItemDataSource) }
     private val createItemUseCase by lazy { CreateItemUseCase(itemRepository) }
     private val logoutUseCase by lazy { LogoutUseCase(authRepository) }
 
@@ -116,6 +122,11 @@ object InjectContainer {
         }
 
     }
+
+
+
+
+
 
 }
 
