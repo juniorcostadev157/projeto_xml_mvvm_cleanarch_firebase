@@ -18,6 +18,7 @@ import com.junior.projetomvvmcleanxml.domain.usecase.authenticationusecase.Login
 import com.junior.projetomvvmcleanxml.domain.usecase.authenticationusecase.LogoutUseCase
 import com.junior.projetomvvmcleanxml.domain.usecase.item.CreateItemUseCase
 import com.junior.projetomvvmcleanxml.domain.usecase.item.ListItemUseCase
+import com.junior.projetomvvmcleanxml.domain.usecase.item.ListLocalItemsUseCase
 import com.junior.projetomvvmcleanxml.domain.usecase.userpreference.ClearUseSessionUseCase
 import com.junior.projetomvvmcleanxml.domain.usecase.userpreference.GetNameSessionUseCase
 import com.junior.projetomvvmcleanxml.domain.usecase.users.CreateUsersUseCase
@@ -28,7 +29,8 @@ import com.junior.projetomvvmcleanxml.presentation.cadastro.CadastroViewModel
 import com.junior.projetomvvmcleanxml.presentation.login.LoginViewModel
 import com.junior.projetomvvmcleanxml.presentation.login.SessionViewModel
 import com.junior.projetomvvmcleanxml.presentation.principal.createitem.CreateItemViewModel
-import com.junior.projetomvvmcleanxml.presentation.principal.list_item.ListItemViewModel
+import com.junior.projetomvvmcleanxml.presentation.principal.list_item_firebase_fragment.ListItemViewModel
+import com.junior.projetomvvmcleanxml.presentation.principal.list_item_room_fragment.ListRoomViewModel
 import com.junior.projetomvvmcleanxml.worker.CustomWorkerFactory
 
 object InjectContainer {
@@ -103,6 +105,15 @@ object InjectContainer {
 
         }
 
+
+    }
+    private val listItemLocalUseCase by lazy { ListLocalItemsUseCase(itemRepository) }
+    val listItemRoomFactory: GenericViewModelFactory<ListRoomViewModel> by lazy {
+        GenericViewModelFactory {
+            ListRoomViewModel(
+                listLocal = listItemLocalUseCase
+            )
+        }
 
     }
 

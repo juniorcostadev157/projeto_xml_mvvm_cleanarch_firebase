@@ -6,11 +6,13 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.junior.projetomvvmcleanxml.data.model.item.ItemLocalEntity
+import kotlinx.coroutines.flow.Flow
+
 @Dao
 interface ItemDao {
 
     @Query("SELECT * FROM items")
-    suspend fun getAllItems(): List<ItemLocalEntity?>
+    fun getAllItems(): Flow<List<ItemLocalEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertItem(item: ItemLocalEntity)

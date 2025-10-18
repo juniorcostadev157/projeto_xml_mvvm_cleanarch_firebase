@@ -8,4 +8,6 @@ interface ItemRepository {
 
     fun getAllItem(): Flow<List<Item>>
 
+    suspend fun getAllLocalItems(): Flow<List<Item>>
+
 }

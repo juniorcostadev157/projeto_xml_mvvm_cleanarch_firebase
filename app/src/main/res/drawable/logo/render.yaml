@@ -1,0 +1,14 @@
+# Exported from Render on 2024-12-23T18:05:42Z
+services:
+- type: web
+  name: CRUD-FIREBASE-TESTE-2
+  runtime: docker
+  repo: https://github.com/juniorcostadev157/CRUD-FIREBASE-TESTE
+  plan: free
+  envVars:
+  - key: FIREBASE_SERVICE_ACCOUNT
+    sync: false
+  region: oregon
+  dockerContext: .
+  dockerfilePath: ./Dockerfile
+version: "1"

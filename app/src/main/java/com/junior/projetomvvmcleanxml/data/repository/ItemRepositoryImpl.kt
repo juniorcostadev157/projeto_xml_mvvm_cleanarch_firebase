@@ -31,6 +31,19 @@ class ItemRepositoryImpl (
        }
     }
 
+    override suspend fun getAllLocalItems(): Flow<List<Item>> {
+        return local.getAllItems().map { list->
+            list.map{itemEntityLocal->
+                itemEntityLocal!!.toDomain()
+            }
+        }
+
+
+
+
+
+    }
+
     suspend fun syncPendingItems(){
         val pendentes = local.getPendingItems()
         for (item in pendentes) {

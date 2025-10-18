@@ -1,6 +1,7 @@
 package com.junior.projetomvvmcleanxml.data.datasource.local.room
 
 import com.junior.projetomvvmcleanxml.data.model.item.ItemLocalEntity
+import kotlinx.coroutines.flow.Flow
 
 class RoomItemDataSource(private val dao: ItemDao) {
 
@@ -8,7 +9,7 @@ class RoomItemDataSource(private val dao: ItemDao) {
         dao.insertItem(item)
     }
 
-    suspend fun getAllItems(): List<ItemLocalEntity?>{
+   fun getAllItems(): Flow<List<ItemLocalEntity>>{
         return dao.getAllItems()
     }
 

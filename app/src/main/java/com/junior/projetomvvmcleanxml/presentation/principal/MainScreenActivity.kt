@@ -36,7 +36,7 @@ class MainScreenActivity : AppCompatActivity() {
 
          AppBarConfiguration(
             setOf(
-                R.id.navigation_list_item, R.id.navigation_create_item
+                R.id.navigation_list_item_cloud, R.id.navigation_create_item, R.id.navigation_list_item_local
             )
         )
 

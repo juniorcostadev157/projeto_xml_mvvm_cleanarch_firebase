@@ -5,10 +5,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.junior.projetomvvmcleanxml.R
 import com.junior.projetomvvmcleanxml.databinding.ItemBinding
 import com.junior.projetomvvmcleanxml.domain.model.item.Item
 
-class AdapterItem(val context: Context,private val listItem: MutableList<Item>):
+class AdapterItem(val context: Context,private val listItem: MutableList<Item>, private val isCloud: Boolean = false):
     RecyclerView.Adapter<AdapterItem.ItemViewHolder>(){
     inner class ItemViewHolder(val binding: ItemBinding): RecyclerView.ViewHolder(binding.root)
 
@@ -28,6 +29,18 @@ class AdapterItem(val context: Context,private val listItem: MutableList<Item>):
     ) {
        val item = listItem[position]
         holder.binding.txtName.text = item.name
+
+        if (isCloud) {
+            holder.binding.txtStatus.text = context.getString(R.string.status_cloud)
+
+        } else {
+            if (item.isSynchronized) {
+                holder.binding.txtStatus.text = context.getString(R.string.status_ok)
+            } else {
+                holder.binding.txtStatus.text = context.getString(R.string.status_pending)
+            }
+        }
+
     }
 
     @SuppressLint("NotifyDataSetChanged")
