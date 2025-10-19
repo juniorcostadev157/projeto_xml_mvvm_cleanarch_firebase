@@ -27,6 +27,7 @@
       <w>enviar</w>
       <w>erro</w>
       <w>eventos</w>
+      <w>falha</w>
       <w>fraca</w>
       <w>grafite</w>
       <w>importar</w>
@@ -36,6 +37,7 @@
       <w>inválidas</w>
       <w>itens</w>
       <w>ktlint</w>
+      <w>locais</w>
       <w>logado</w>
       <w>menos</w>
       <w>mensagem</w>
@@ -43,6 +45,8 @@
       <w>ocorreu</w>
       <w>parametros</w>
       <w>pelo</w>
+      <w>pendente</w>
+      <w>pendentes</w>
       <w>permissão</w>
       <w>preencha</w>
       <w>preto</w>
@@ -53,6 +57,8 @@
       <w>salvando</w>
       <w>senha</w>
       <w>senhas</w>
+      <w>sincronizar</w>
+      <w>sincronização</w>
       <w>usuário</w>
       <w>vindo</w>
       <w>voltar</w>

@@ -1,5 +1,6 @@
 package com.junior.projetomvvmcleanxml.data.repository
 
+import com.junior.projetomvvmcleanxml.core.CrashlyticsLogger
 import com.junior.projetomvvmcleanxml.data.datasource.local.room.RoomItemDataSource
 import com.junior.projetomvvmcleanxml.data.datasource.remote.FirebaseItemDataSource
 import com.junior.projetomvvmcleanxml.data.model.item.toDomain
@@ -34,7 +35,7 @@ class ItemRepositoryImpl (
     override suspend fun getAllLocalItems(): Flow<List<Item>> {
         return local.getAllItems().map { list->
             list.map{itemEntityLocal->
-                itemEntityLocal!!.toDomain()
+                itemEntityLocal.toDomain()
             }
         }
 
@@ -52,6 +53,7 @@ class ItemRepositoryImpl (
                 local.updateItem(item.copy(isSynchronized = true))
             } catch (e: Exception) {
                 println("Erro ao sincronizar ${item?.id}: ${e.message}")
+                CrashlyticsLogger.logMessage("Erro ao sincronizar ${item?.id}: ${e.message}")
             }
         }
     }
