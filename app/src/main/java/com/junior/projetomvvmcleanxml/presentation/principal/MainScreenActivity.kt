@@ -1,9 +1,14 @@
 package com.junior.projetomvvmcleanxml.presentation.principal
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -31,7 +36,7 @@ class MainScreenActivity : AppCompatActivity() {
 
          AppBarConfiguration(
             setOf(
-                R.id.navigation_list_item, R.id.navigation_create_item
+                R.id.navigation_list_item_cloud, R.id.navigation_create_item, R.id.navigation_list_item_local
             )
         )
 
@@ -43,6 +48,7 @@ class MainScreenActivity : AppCompatActivity() {
 
         }
         navView.setupWithNavController(navController)
+        requestNotificationPermission()
     }
 
     override fun onStart() {
@@ -59,4 +65,19 @@ class MainScreenActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    101
+                )
+            }
+        }
+    }
+
 }

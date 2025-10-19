@@ -3,14 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_list_item"
+    app:startDestination="@+id/navigation_list_item_cloud"
     tools:ignore="InvalidNavigation">
 
     <fragment
-        android:id="@+id/navigation_list_item"
-        android:name="com.junior.projetomvvmcleanxml.presentation.principal.list_item.ListItemFragment"
+        android:id="@+id/navigation_list_item_cloud"
+        android:name="com.junior.projetomvvmcleanxml.presentation.principal.list_item_firebase_fragment.ListItemCloudFragment"
         android:label="@string/title_list_item"
-        tools:layout="@layout/fragment_list_item" />
+        tools:layout="@layout/fragment_list_item_cloud" />
+
+
+    <fragment
+        android:id="@+id/navigation_list_item_local"
+        android:name="com.junior.projetomvvmcleanxml.presentation.principal.list_item_room_fragment.ListRoomFragment"
+        android:label="@string/title_list_local"
+        tools:layout="@layout/fragment_list_room" />
 
     <fragment
         android:id="@+id/navigation_create_item"

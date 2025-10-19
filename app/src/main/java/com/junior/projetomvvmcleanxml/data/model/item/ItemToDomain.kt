@@ -7,3 +7,10 @@ fun ItemEntity.toDomain() = Item(
     name = this.name,
     createdBy = this.createdBy
 )
+
+fun ItemLocalEntity.toDomain() = Item(
+    id = this.id,
+    name = this.name,
+    createdBy = this.createdBy,
+    isSynchronized = this.isSynchronized
+)

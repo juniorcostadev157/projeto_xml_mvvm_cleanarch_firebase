@@ -51,10 +51,20 @@
         Sair
     </string>
     <string name="title_activity_main_screen">MainScreenActivity</string>
-    <string name="title_list_item">Listar Itens</string>
+    <string name="title_list_item">Listar Itens Cloud</string>
+    <string name="title_list_local">Listar Itens Local</string>
+    <string name="list_local">Items Locais</string>
     <string name="title_create_item">Criar Item</string>
     <string name="title_notifications">Notifications</string>
     <string name="hello_user">Hello: %1$s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name_item">Nome do item</string>
+    <string name="status_ok">✅ Sincronizado</string>
+    <string name="status_pending">⏳ Pendente</string>
+    <string name="status_cloud">☁️ Cloud</string>
+
+
     "
 
 </resources>

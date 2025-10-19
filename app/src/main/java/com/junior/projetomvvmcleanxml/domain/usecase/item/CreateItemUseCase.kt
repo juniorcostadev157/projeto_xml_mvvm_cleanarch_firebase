@@ -1,6 +1,5 @@
 package com.junior.projetomvvmcleanxml.domain.usecase.item
 
-import android.util.Log
 import com.junior.projetomvvmcleanxml.domain.model.item.Item
 import com.junior.projetomvvmcleanxml.domain.repository.ItemRepository
 
